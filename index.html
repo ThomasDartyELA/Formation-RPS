@@ -6148,7 +6148,14 @@ S = load() || { binome:'', res:{}, cur:null, screen:'accueil' };
    ==================================================================== */
 /* >>> CONFIGURATION FIREBASE DU PROJET « FORMATION RPS » — coller ici l'objet firebaseConfig <<<
    Laisser null tant que le projet n'est pas créé : le jeu fonctionne alors en mode hors ligne. */
-const FB_CFG = null;
+const FB_CFG = {
+  apiKey: "AIzaSyA27JU06bGTtUhHRVh8wab0Tw2vsrWdhWQ",
+  authDomain: "formation-rps.firebaseapp.com",
+  projectId: "formation-rps",
+  storageBucket: "formation-rps.firebasestorage.app",
+  messagingSenderId: "348748650515",
+  appId: "1:348748650515:web:f7512716074b0f023c47e6"
+};
 const FB_VER = '10.12.2';
 const COL = 'formation_rps';
 const PIN_ANIM = '2026';                      // code du mode animateur (à modifier si besoin)
