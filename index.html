@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr"><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=1320">
 <title>Nomad Magasin – Formation RPS</title>
 <style>
 /* bootstrap.min.css */
@@ -5267,7 +5267,7 @@ progress span{
 #header .nav > li > a{color:#fff !important;text-shadow:none !important}
 #header .nav > li > a:hover{background:#c8102e !important}
 #nav-1 > a{background:#c8102e !important}
-#header .nav li:hover > .dropdown-menu{display:block}
+#header .nav li:hover > .dropdown-menu,#header .nav li.open > .dropdown-menu{display:block}
 #header .dropdown-menu a{color:#333 !important}
 #header .dropdown-menu a:hover{background:#c8102e !important;color:#fff !important}
 .dataTable thead th{background:#098B9B;color:#fff}
@@ -9850,7 +9850,12 @@ function initHeader(){
     const t = a.textContent.trim();
     if (a.id==='logo_lnk') return go('accueil');
     if (t==='DÉPOSE PRODUIT') return S.cur ? go('recherche') : (S.team ? nouvellePriseEnCharge() : go('accueil'));
-    if (a.classList.contains('dropdown-toggle')) return;
+    if (a.classList.contains('dropdown-toggle')) {
+      const li=a.parentElement, o=li.classList.contains('open');
+      $$('#header .nav li.open').forEach(x=>x.classList.remove('open'));
+      if(!o) li.classList.add('open'); return;
+    }
+    $$('#header .nav li.open').forEach(x=>x.classList.remove('open'));
     if (t.includes('dossier avec pr')) return ouvrirPrefixe();
     toast('« ' + esc(t) + ' » n\'est pas disponible dans l\'environnement de formation.');
   }));
