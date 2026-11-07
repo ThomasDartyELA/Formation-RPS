@@ -5779,6 +5779,19 @@ body.projection h3.blocktitle_bg_bleu{font-size:22px !important;padding:16px 24p
 .t-btns #valider{min-width:240px}
 .t-radios .radio-inline{display:inline-block;margin-right:18px;padding-top:5px}
 .t-radios input{margin:0 5px 0 0 !important;vertical-align:-1px}
+
+/* ---------- Envoi Atelier ---------- */
+.orient-q{font-size:15px;font-weight:bold;text-align:center;margin:10px 0 18px}
+.e-reserve{margin:0 0 14px 180px;font-size:13px}
+.e-reserve input{margin:0 6px 0 0 !important;vertical-align:-1px}
+.e-accs{width:400px;border-left:1px dotted grey;padding:2px 2px 2px 6px;overflow:hidden}
+.e-acc{display:flex;justify-content:space-between;align-items:center;background:#f2f2f2;border-radius:4px;padding:5px 8px;margin-bottom:2px;font-size:12px}
+.e-sw{display:inline-flex;border-radius:4px;overflow:hidden;cursor:pointer;font-size:11px;user-select:none;border:1px solid #bbb}
+.e-sw b,.e-sw i{font-style:normal;font-weight:normal;padding:2px 8px;background:#fff;color:#999}
+.e-sw:not(.on) i{background:#7f8c8d;color:#fff}
+.e-sw.on b{background:#098B9B;color:#fff}
+.e-inline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px}
+.e-pill{background:gray;color:#fff;border-radius:10px;padding:4px 9px;font-size:11.5px}
 </style>
 </head>
 <body>
@@ -8727,8 +8740,8 @@ const ARIANE = [
 ];
 function renderAriane(screen){
   let h = `<li class="home"><a href="#" data-go="accueil" style="height:auto;">Accueil</a></li><li class="first-chevron"><img src="${IMG.ariane_fleche_home}"></li>`;
-  const idx = (screen==='reprise' || screen==='termine') ? 2 : ARIANE.findIndex(a => a[0]===screen);
-  if (idx >= 0) ARIANE.slice(0, idx+1).concat(screen==='reprise'?[['reprise','Reprise commerciale']]:screen==='termine'?[['termine','Terminé']]:[]).forEach(a => {
+  const idx = ['reprise','termine','envoi'].includes(screen) ? 2 : ARIANE.findIndex(a => a[0]===screen);
+  if (idx >= 0) ARIANE.slice(0, idx+1).concat(screen==='reprise'?[['reprise','Reprise commerciale']]:screen==='termine'?[['termine','Terminé']]:screen==='envoi'?[['envoi','Envoi Atelier']]:[]).forEach(a => {
     h += `<li><a href="#" data-go="${a[0]}">${a[1]}</a></li><li><img src="${IMG.ariane_fleche_suite}"></li>`;
   });
   else if (screen.startsWith('prefixe')){
@@ -8752,16 +8765,16 @@ function renderAriane(screen){
 
 /* ---------- Navigation ---------- */
 function go(screen){
-  if (['recherche','liste','equip','diag','reprise','termine'].includes(screen) && !S.cur) screen = 'accueil';
+  if (['recherche','liste','equip','diag','reprise','termine','envoi'].includes(screen) && !S.cur) screen = 'accueil';
   if (!screen) screen = 'accueil';
   if (screen==='liste' && !(S.cur && S.cur.clientId)) screen = 'recherche';
-  if (['equip','diag','reprise','termine'].includes(screen) && !(S.cur && S.cur.productOk)) screen = (S.cur && S.cur.clientId) ? 'liste' : 'recherche';
+  if (['equip','diag','reprise','termine','envoi'].includes(screen) && !(S.cur && S.cur.productOk)) screen = (S.cur && S.cur.clientId) ? 'liste' : 'recherche';
   if (screen.startsWith('prefixe') && !S.cur) screen = 'accueil';
   if (screen==='prefixe_dossier' && !(S.cur && S.cur.pref && S.cur.pref.codic)) screen = 'prefixe';
   S.screen = screen; save();
   panelOpen = false;
   renderAriane(screen);
-  const R = { accueil, recherche, liste, equip, diag, reprise, termine, correction, animateur, bilan, classement, prefixe, prefixe_dossier }[screen] || accueil;
+  const R = { accueil, recherche, liste, equip, diag, reprise, termine, envoi, correction, animateur, bilan, classement, prefixe, prefixe_dossier }[screen] || accueil;
   $('#toast').className = '';
   $('#app').innerHTML = '';
   R();
@@ -8778,7 +8791,7 @@ document.addEventListener('click', e => {
    ==================================================================== */
 function renderPanel(){
   const p = $('#client-panel');
-  if (!S.cur || !['recherche','liste','equip','diag','reprise','termine','prefixe','prefixe_dossier'].includes(S.screen)){
+  if (!S.cur || !['recherche','liste','equip','diag','reprise','termine','envoi','prefixe','prefixe_dossier'].includes(S.screen)){
     p.style.display='none'; document.body.classList.remove('panel-on'); return;
   }
   p.style.display='block'; document.body.classList.add('panel-on'); p.classList.remove('mini');
@@ -9319,18 +9332,33 @@ function diag(){
   $('#big_frame').onclick = () => { if (S.cur.kb) modal(kbHtml(p.famille, c)+'<div class="modal-btns"><button class="btn btn-primary" onclick="NF.close()">Fermer</button></div>', {width:820}); };
   $('#retour_btn').onclick = () => go('equip');
   $('#solution_trouvee_oui').onclick = () => { if (!S.cur.symptome.trim()){ toast('Le symptôme est obligatoire.', 'err'); return; } go('termine'); };
-  $('#solution_trouvee_non').onclick = () => conclure(false);
+  $('#solution_trouvee_non').onclick = () => {
+    if (!S.cur.symptome.trim()){ toast('Le symptôme est obligatoire.', 'err'); return; }
+    modal(`<p class="orient-q">Quelle est l'orientation à appliquer au produit ?</p>
+      <div class="modal-btns"><button class="btn btn-primary" id="or-filt">Attente Filtering Magasin</button><button class="btn btn-primary" id="or-atel">Envoi direct en Atelier</button></div>`, {width:520});
+    $('#or-atel').onclick = () => { closeModal(); go('envoi'); };
+    $('#or-filt').onclick = () => { closeModal(); toast('« Attente Filtering Magasin » n\'est pas reproduit dans la formation : choisissez « Envoi direct en Atelier » ou revenez au diagnostic.', 'err'); };
+  };
 }
 
 /* ====================================================================
    ÉCRAN : TERMINÉ (bouton vert « Oui » du diagnostic — reproduit d'après Nomad : page=termine)
    ==================================================================== */
 const REGIMES = [['FGL','FNAC GAR. LINEAIRE'],['FRG','FNAC GAR. PROLONGEE'],['FA1','FNAC GARANTIE 1ERE A'],['FA2','FNAC GARANTIE 2EME A'],['FGF','FNAC GARANTIE FOURN.'],['FGM','FNAC GARANTIE MO'],['FGP','FNAC GARANTIE PIECE'],['FSE','FNAC SERVICE ETENDU'],['FG1','GAR.FRANCHISE 1ER AN'],['FG2','GAR.FRANCHISE 2ME AN'],['FGE','GAR.FRANCHISE ETENDU'],['SGC','GARANTIE CONFORMITE'],['PSE','GARANTIE ETENDUE 3 A'],['SGM','GARANTIE MAIN OEUVRE'],['MG1','GARANTIE MGD 1ERE A'],['MG2','GARANTIE MGD 2EME A'],['MGE','GARANTIE MGD ETENDUE'],['SGP','GARANTIE PIECE'],['SGF','GARANTIE PIECE ET MO'],['GSV','GARANTIE SAV'],['SGE','GARANTIE VTE EXTERNE'],['HHD','HORS GAR./HORS FD'],['FHD','HORS GAR.FRANCHISE'],['PRG','PROLONGA. GARANTIE'],['SG1','SOUS GARANTIE 1ERE A'],['SG2','SOUS GARANTIE 2EME A'],['SGL','SOUS GARANTIE MAGAS.'],['SGT','SOUS GARANTIE PTF']];
-const regimeStatut = code => ['HHD','FHD'].includes(code) ? 'HG' : ['PRG','PSE','FSE','FGE','MGE','FRG'].includes(code) ? 'EXT' : 'G';
+const REGIMES_SG = [['CSB','CONTRAT SERV.B TO B'],['CSE','CONTRAT SERV.ETENDUS'],['DAC','DARTY APPLE CARE'],['PG1','GARANTIE ETENDUE 1 A'],['PG2','GARANTIE ETENDUE 2 A'],['SGF','GARANTIE PIECE ET MO'],['GSV','GARANTIE SAV'],['HGD','HORS GARANTIE DARTY'],['PRE','PRESTATION'],['PRG','PROLONGA. GARANTIE'],['SG1','SOUS GARANTIE 1ERE A'],['SG2','SOUS GARANTIE 2EME A'],['SGL','SOUS GARANTIE MAGAS.'],['SGT','SOUS GARANTIE PTF']];
+const regimeStatut = code => ['HHD','FHD','HGD','PRE'].includes(code) ? 'HG' : ['PRG','PSE','FSE','FGE','MGE','FRG','PG1','PG2','CSB','CSE','DAC'].includes(code) ? 'EXT' : 'G';
+// Nomad présélectionne le régime selon la garantie : liste courte + SOUS GARANTIE 1ERE/2EME A sous garantie, liste complète + HORS GAR./HORS FD sinon
+function regimeNomad(p){
+  const g = garantie(p);
+  if (g.statut === 'HG') return { liste:REGIMES, def:'HHD', g };
+  if (g.statut === 'EXT') return { liste:REGIMES_SG, def:'PG1', g };
+  return { liste:REGIMES_SG, def: (TODAY - g.deb) < 365*86400000 ? 'SG1' : 'SG2', g };
+}
+const libRegime = code => ((REGIMES.concat(REGIMES_SG)).find(r => r[0]===code)||[,''])[1];
 const ETATS = [['1','NEUF'],['2','TRACES D\'UTILISATION'],['3','TRACES DE SALISSURES'],['4','RAYURES LEGERES'],['5','RAYURES IMPORTANTES'],['6','TRACES DE CHOC'],['7','TRACES LIQUIDE/OXYDATION'],['8','ETAT INCONNU']];
 function termine(){
-  const { c, cl, p } = produitCas(); const g = garantie(p);
-  const T = S.cur.term || (S.cur.term = { serie:p.serie||'', regime: g.statut==='HG' ? 'HHD' : g.statut==='EXT' ? 'PRG' : 'SGL',
+  const { c, cl, p } = produitCas(); const RG = regimeNomad(p);
+  const T = S.cur.term || (S.cur.term = { serie:p.serie||'', regime: RG.def,
     symptomes:S.cur.symptome||'', type:'', diag:S.cur.diag||'', sol:S.cur.sol||'', etat:'', comm:'', mail:cl.mail||'' });
   save();
   $('#app').innerHTML = `
@@ -9353,7 +9381,7 @@ function termine(){
       <div class="blockInformation"><div class="arrowdownGauche"></div>
         <form id="form-termine_immediat" class="form-horizontal" onsubmit="return false" autocomplete="off"><fieldset><div style="padding-top:20px;width:100%;height:auto;">
           <div class="control-group"><label class="control-label" for="num_serie_termine">Numéro de série :</label><div class="controls"><input type="text" class="input" id="num_serie_termine" style="width:390px;" value="${esc(T.serie)}"></div></div>
-          <div class="control-group"><label class="control-label" for="regime_intervention">Régime d'intervention :</label><div class="controls"><select class="selectpicker" id="regime_intervention">${REGIMES.map(([v,l]) => `<option value="${v}" ${T.regime===v?'selected':''}>${l}</option>`).join('')}</select></div></div>
+          <div class="control-group"><label class="control-label" for="regime_intervention">Régime d'intervention :</label><div class="controls"><select class="selectpicker" id="regime_intervention">${RG.liste.map(([v,l]) => `<option value="${v}" ${T.regime===v?'selected':''}>${l}</option>`).join('')}</select></div></div>
           <div class="control-group"><label class="control-label" for="t_symptomes">Symptômes :</label><div class="controls"><textarea rows="2" id="t_symptomes" class="input-block-level" style="width:400px;">${esc(T.symptomes)}</textarea></div></div>
           <div class="control-group"><label class="control-label">Type de Terminé :</label><div class="controls t-radios">
             <label class="radio-inline"><input type="radio" name="type_termine" value="TERNR" ${T.type==='TERNR'?'checked':''}> Terminé non réparé</label>
@@ -9384,6 +9412,86 @@ function termine(){
     if (!T.diag.trim()) manque.push('Diagnostic'); if (!T.sol.trim()) manque.push('Solution'); if (!T.etat) manque.push('Etat de l\'appareil');
     if (manque.length){ toast('Champs obligatoires : ' + manque.join(', ') + '.', 'err'); return; }
     noter('R1', regimeStatut(T.regime), (Date.now() - S.cur.t0)/1000, { term:T });
+  };
+}
+
+/* ====================================================================
+   ÉCRAN : ENVOI ATELIER (bouton rouge « Non » > Envoi direct en Atelier — d'après Nomad : page=dossier_sav)
+   ==================================================================== */
+const ACCESSOIRES = {
+  'NETTOYEUR SOL':['CHARGEUR','BASE','RESERVOIR EAU PROPRE','RESERVOIR EAU SALE','EMBALLAGE'],
+  'EXPRESSO FULL-AUTO':['RESERVOIR EAU','BAC A MARC','BAC D\'EGOUTTAGE','CARTOUCHE FILTRANTE','EMBALLAGE'],
+  '_':['CHARGEUR','BASE','EMBALLAGE']
+};
+function envoi(){
+  const { c, cl, p } = produitCas(); const RG = regimeNomad(p), g = RG.g;
+  const accs = ACCESSOIRES[p.famille] || ACCESSOIRES._;
+  const E = S.cur.env || (S.cur.env = { serie:p.serie||'', regime: RG.def, reserve:false,
+    symptomes:S.cur.symptome||'', diag:S.cur.diag||'', sol:S.cur.sol||'', acc:{}, accLibre:'', etat:'', comm:'', inter:'', mag:'945002', mail:cl.mail||'' });
+  save();
+  const mad = new Date(TODAY.getTime() + 26*86400000); const madTxt = String(mad.getDate()).padStart(2,'0')+'/'+String(mad.getMonth()+1).padStart(2,'0')+'/'+mad.getFullYear();
+  const MAGS = [['945002','MAG LIMONEST'],['945056','SAV LIMONEST ELA'],['945010','MAG CALUIRE'],['945011','MAG BRON'],['945012','MAG LA PART DIEU'],['945013','MAG SAINT PRIEST'],['945014','MAG VENISSIEUX']];
+  $('#app').innerHTML = `
+  <div class="container"><div class="row">
+    <div class="span4" id="div_donnee_client"><div id="blockDonneeClient"><div id="sidebare3">
+      <h3 class="blocktitle blocktitle_bg_green special_h3"><span><img src="${IMG.icone_client}" alt="info_client">DONNEES CLIENT</span></h3>
+      <div class="blockInformation" style="padding:0px"><div class="arrowdownGaucheGreen"></div>
+        <div class="container"><div class="content special_content">
+          <div style="float:left;width:150px;">
+            <p>${cl.civ} ${esc(cl.prenom)} ${esc(cl.nom)}</p>
+            <address class="adresse_facturation"><p class="no-style">${esc(cl.num)} ${esc(cl.rue)}<br>${esc(cl.cp)} - ${esc(cl.ville)}</p></address>
+            <table class="special_table_client"><tr><td style="width:15%"><img src="${IMG.phone_icon}" class="client-icon"></td><td>${esc(cl.tel)}</td></tr>${cl.mail?`<tr><td><img src="${IMG.mail_icon}" class="client-icon"></td><td>${esc(cl.mail)}</td></tr>`:''}</table>
+          </div>
+          <div style="float:left;clear:both;"><div class="grid-btn special_grid"><button class="btn btn-success" id="maj_client">Modifier les données</button></div></div>
+        </div></div>
+      </div>
+    </div></div></div>
+    <div class="span8"><div>
+      <h3 class="blocktitle_bg_bleu">Envoi Atelier</h3>
+      <div class="blockInformation"><div class="arrowdownGauche"></div>
+        <form id="form-dossier-sav" class="form-horizontal" onsubmit="return false" autocomplete="off"><fieldset style="padding-top:20px;">
+          <div class="control-group"><label class="control-label" for="e_num_serie">Numéro de série :</label><div class="controls"><input type="text" class="input" id="e_num_serie" style="width:390px;" value="${esc(E.serie)}"></div></div>
+          <div class="control-group" style="margin-bottom:5px;"><label class="control-label" for="e_regime">Régime d'intervention :</label><div class="controls"><select class="selectpicker" id="e_regime" style="width:200px;">${RG.liste.map(([v,l]) => `<option value="${v}" ${E.regime===v?'selected':''}>${l}</option>`).join('')}</select></div></div>
+          <div class="e-reserve"><label><input type="checkbox" id="e_reserve" ${E.reserve?'checked':''}> Réserve sur la prise en charge</label></div>
+          <div class="control-group"><label class="control-label" for="e_symptomes">Symptômes :</label><div class="controls"><textarea rows="2" id="e_symptomes" class="input-block-level" style="width:400px;">${esc(E.symptomes)}</textarea></div></div>
+          <div class="control-group"><label class="control-label" for="e_diagnostic">Diagnostic :</label><div class="controls"><textarea rows="2" id="e_diagnostic" class="input-block-level" style="width:400px;">${esc(E.diag)}</textarea></div></div>
+          <div class="control-group"><label class="control-label" for="e_resolution">Solution :</label><div class="controls"><textarea rows="2" id="e_resolution" class="input-block-level" style="width:400px;">${esc(E.sol)}</textarea></div></div>
+          <div class="control-group"><label class="control-label">Accessoires/composants :</label><div class="controls"><div class="e-accs">
+            ${accs.map(a => `<div class="e-acc"><span>${esc(a)}</span><span class="e-sw ${E.acc[a]?'on':''}" data-acc="${esc(a)}"><b>Oui</b><i>Non</i></span></div>`).join('')}
+            <textarea rows="2" id="e_acc_libre" class="input-block-level" placeholder="Saisie libre..." style="width:100%;margin-top:6px">${esc(E.accLibre)}</textarea></div></div></div>
+          <div class="control-group"><label class="control-label" for="e_etat">Etat de l'appareil :</label><div class="controls"><select class="selectpicker" id="e_etat" style="width:200px;"><option value="" disabled ${E.etat?'':'selected'}></option>${ETATS.map(([v,l]) => `<option value="${v}" ${E.etat===v?'selected':''}>${l}</option>`).join('')}</select></div></div>
+          <div class="control-group"><label class="control-label" for="e_commentaire">Commentaire sur l'état :</label><div class="controls"><textarea rows="1" id="e_commentaire" class="input-block-level" style="width:400px;">${esc(E.comm)}</textarea></div></div>
+          <div class="control-group"><label class="control-label" for="e_inter">Intervention demandée :</label><div class="controls e-inline">
+            <select class="selectpicker" id="e_inter" style="width:170px;"><option value="" disabled ${E.inter?'':'selected'}></option><option value="repar" ${E.inter==='repar'?'selected':''}>Réparation</option><option value="devis" ${E.inter==='devis'?'selected':''}>Demande de devis</option></select>
+            <span class="e-pill">${g.sous ? 'Pas de montant de prise en charge' : 'Montant de prise en charge <b>49.98 €</b>'}</span><span class="e-pill">Pas de montant de réparation</span></div></div>
+          <div class="control-group"><label class="control-label" for="e_mag">Magasin de retrait :</label><div class="controls e-inline">
+            <select class="selectpicker" id="e_mag" style="width:170px;">${MAGS.map(([v,l]) => `<option value="${v}" ${E.mag===v?'selected':''}>${l}</option>`).join('')}</select>
+            <span>Mise à disposition le: <b>${madTxt}</b></span></div></div>
+          <div class="control-group"><label class="control-label" for="e_email">E-mail client: </label><div class="controls"><input id="e_email" type="text" value="${esc(E.mail)}" placeholder="e-mail client" style="width:390px;"></div></div>
+          <div class="t-btns"><button type="button" class="btn btn-primary btn-large" id="e_retour">RETOUR</button><button type="button" class="btn btn-primary btn-large btn-success" id="validate_action">VALIDER ENVOI ATELIER</button></div>
+        </fieldset></form>
+      </div>
+    </div></div>
+  </div></div>`;
+  const keep = () => {
+    E.serie = $('#e_num_serie').value; E.regime = $('#e_regime').value; E.reserve = $('#e_reserve').checked; E.symptomes = $('#e_symptomes').value;
+    E.diag = $('#e_diagnostic').value; E.sol = $('#e_resolution').value; E.accLibre = $('#e_acc_libre').value; E.etat = $('#e_etat').value || '';
+    E.comm = $('#e_commentaire').value; E.inter = $('#e_inter').value || ''; E.mag = $('#e_mag').value; E.mail = $('#e_email').value;
+    S.cur.symptome = E.symptomes; S.cur.diag = E.diag; S.cur.sol = E.sol; save();
+  };
+  $$('#form-dossier-sav input, #form-dossier-sav textarea, #form-dossier-sav select').forEach(e => { e.oninput = keep; e.onchange = keep; });
+  $$('.e-sw').forEach(sw => sw.onclick = () => { const a = sw.dataset.acc; E.acc[a] = !E.acc[a]; sw.classList.toggle('on', E.acc[a]); save(); });
+  $('#maj_client').onclick = () => toast('Modification client désactivée en formation.');
+  $('#e_retour').onclick = () => { keep(); go('diag'); };
+  $('#validate_action').onclick = () => {
+    keep();
+    const manque = [];
+    if (!E.serie.trim()) manque.push('Numéro de série'); if (!E.symptomes.trim()) manque.push('Symptômes');
+    if (!E.etat) manque.push('Etat de l\'appareil'); if (!E.inter) manque.push('Intervention demandée');
+    if (manque.length){ toast('Champs obligatoires : ' + manque.join(', ') + '.', 'err'); return; }
+    modal(`<h3 class="modal-t">Valider Envoi Atelier</h3><p>Le produit sera déposé et <b>envoyé à l'atelier</b> pour ${E.inter==='devis'?'devis':'réparation'}. Confirmer ?</p>
+      <div class="modal-btns"><button class="btn" onclick="NF.close()">Annuler</button><button class="btn btn-primary" id="env-ok">Confirmer</button></div>`, {width:460});
+    $('#env-ok').onclick = () => { closeModal(); noter(g.sous ? 'R4' : 'R5', regimeStatut(E.regime), (Date.now() - S.cur.t0)/1000, { env:E }); };
   };
 }
 
@@ -9645,6 +9753,14 @@ function noter(ori, gar, sec, extra){
            (ok3?'✔':'✖')+' symptôme « rappel de parc »',
            (ok4?'✔':'✖')+' accessoires et état de l\'appareil renseignés',
            'Mise en HS effectuée : étiquette MITRY générée' ].join('<br>') });
+  } else if (extra && extra.env){
+    const E = extra.env, sousG = g.statut !== 'HG';
+    const ok = bonCote && (E.inter === 'repar' || !sousG);
+    det.push({ l:'Conditions d\'envoi (intervention demandée)', p: ok ? 10 : 0, m:10,
+      c: 'Choisi : ' + (E.inter === 'devis' ? 'Demande de devis' : 'Réparation') + (E.reserve ? ' · réserve sur la prise en charge cochée' : '')
+         + (!bonCote ? '<br>Attendu : <b>' + bonnes.map(k=>esc(ORIENTATIONS[k])).join('</b> ou <b>') + '</b>'
+            : sousG && E.inter === 'devis' ? '<br>Produit sous garantie : <b>Réparation</b> attendue, pas de devis à la charge du client.'
+            : !sousG ? '<br>Hors garantie : réparation possible sans devis jusqu\'à 150 €, ou demande de devis.' : '') });
   } else if (extra && extra.term){
     const T = extra.term; const d = T.diag.trim().length >= 15, so = T.sol.trim().length >= 15, e = !!T.etat;
     det.push({ l:'Saisie du Terminé (diagnostic, solution, état)', p:bonCote ? (d?4:0)+(so?4:0)+(e?2:0) : 0, m:10,
@@ -9656,7 +9772,8 @@ function noter(ori, gar, sec, extra){
   }
 
   const gOk = gar === g.statut;
-  const regLib = extra && extra.term ? ' (régime ' + esc((REGIMES.find(r => r[0]===extra.term.regime)||[,''])[1]) + ')' : '';
+  const regCode = extra && (extra.term || extra.env) ? (extra.term || extra.env).regime : null;
+  const regLib = regCode ? ' (régime ' + esc(libRegime(regCode)) + ')' : '';
   det.push({ l:'Statut de garantie', p:gOk?15:0, m:15, c: (gOk ? esc(GARANTIES[gar]) : `Déclaré : ${esc(GARANTIES[gar]||'non renseigné')} — Réel : <b>${esc(GARANTIES[g.statut])}</b>`) + regLib });
 
   const sy = norm(cur.symptome);
@@ -9812,7 +9929,7 @@ function animateur(){
     </div>
     <h3 class="blocktitle_bg_bleu" style="padding-left:20px;margin-top:14px">CORRIGÉ ET PRÉPARATION DES ${CAS.length} APPAREILS</h3>
     <div class="blockInformation" style="padding:20px 25px">
-      <p class="an-intro">Règle : en bas de l'écran Diagnostic, <b>Oui (vert) = produit filtré</b>, puis page « Terminé » (diagnostic, solution, état) · <b>Non (rouge) = envoi en SAV</b>. Le chrono part à l'ouverture du dossier et s'arrête à la validation.<br>
+      <p class="an-intro">Règle : en bas de l'écran Diagnostic, <b>Oui (vert) = produit filtré</b>, puis page « Terminé » (diagnostic, solution, état) · <b>Non (rouge) = envoi en SAV</b>, puis « Envoi direct en Atelier » et page « Envoi Atelier » (régime, accessoires, état, réparation ou devis). Le chrono part à l'ouverture du dossier et s'arrête à la validation.<br>
       Bonnes réponses : ${['F','S','P'].map(g => { const l = CAS.filter(c => GROUPE(c.attendu)===g).map(c => 'n°'+c.id); return l.length ? `<b>${l.length} ${({F:'vert(s)',S:'rouge(s)',P:'rappel fournisseur'})[g]}</b> (${l.join(', ')}${g==='P'?' : reprise commerciale « avec mise en HS » puis dossier avec préfixe + mise en HS':''})` : ''; }).filter(Boolean).join(' · ')}.<br>
       Barème : décision 35 · saisie du Terminé ou conditions d'envoi 10 · garantie 15 · symptôme 15 · questions clés 10 · identification 5 · rapidité 10. Mauvais choix vert/rouge : note limitée à 40.</p>
       ${cartes}
