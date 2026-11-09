@@ -8207,11 +8207,19 @@ const CLIENTS = [
       { codic:'4521369', famille:'MACHINE A PAIN', marque:'MOULINEX', ref:'PAIN DORE OW2101', refFour:'OW210130', prix:89.99, vente:'9450030912547', lig:2, ago:[14,12], serie:'' }
     ]},
 
+  { id:'70451236', civ:'MME', nom:'BLANCHARD', prenom:'AURELIE', cp:'69140', num:'17', rue:'RUE DE LA REPUBLIQUE', ville:'RILLIEUX LA PAPE', tel:'0674521398', mail:'a.blanchard@exemple.fr',
+    produits:[
+      { codic:'8452196', famille:'ASPI-ROBOT', marque:'DREAME', ref:'X50 ULTRA COMPLETE BLANC', refFour:'RLX85CE-4', prix:999.00, vente:'9450031874521', lig:1, ago:[7,12], serie:'R2585C0K4521736' },
+      { codic:'8452203', famille:'KIT ACCESSOIRES', marque:'DREAME', ref:'KIT ACCESSOIRES X50', refFour:'RAX50ACC', prix:59.99, vente:'9450031874521', lig:2, ago:[7,12], serie:'' }
+    ]},
+
   /* ---------- Homonymes / leurres ---------- */
   { id:'58912473', civ:'MME', nom:'MARCHAND', prenom:'SYLVIE', cp:'42000', num:'56', rue:'RUE DE LA RESISTANCE', ville:'ST ETIENNE', tel:'0652147896', mail:'sylvie.m@exemple.fr',
     produits:[ { codic:'8215347', famille:'EXPRESSO FULL-AUTO', marque:'DELONGHI', ref:'MAGNIFICA EVO ECAM290.81.TB', refFour:'ECAM290.81.TB', prix:549.00, vente:'9450024785412', lig:1, ago:[30,0], serie:'2302S0198451' } ]},
   { id:'63254999', civ:'M', nom:'ROUX', prenom:'JULIEN', cp:'13008', num:'4', rue:'AVENUE DU PRADO', ville:'MARSEILLE', tel:'0699874512', mail:'julien.roux@exemple.fr',
     produits:[ { codic:'8014752', famille:'NETTOYEUR SOL', marque:'TINECO', ref:'FLOOR ONE S5 STRETCH EXTREME', refFour:'FW412500DE', prix:549.00, vente:'9450030014587', lig:1, ago:[3,0], serie:'' } ]},
+  { id:'70459870', civ:'MME', nom:'BLANCHARD', prenom:'AUDREY', cp:'69140', num:'3', rue:'CHEMIN DE LA BOCAGE', ville:'RILLIEUX LA PAPE', tel:'0678451230', mail:'',
+    produits:[ { codic:'8452196', famille:'ASPI-ROBOT', marque:'DREAME', ref:'X50 ULTRA COMPLETE BLANC', refFour:'RLX85CE-4', prix:999.00, vente:'9450032014785', lig:1, ago:[2,3], serie:'' } ]},
   { id:'52147001', civ:'M', nom:'PERRIN', prenom:'BERNARD', cp:'69570', num:'8', rue:'ROUTE DE LIMONEST', ville:'DARDILLY', tel:'0478451236', mail:'',
     produits:[ { codic:'6325874', famille:'TONDEUSE', marque:'BOSCH', ref:'ROTAK 32', refFour:'06008A6100', prix:129.00, vente:'9450026874512', lig:1, ago:[44,0], serie:'' } ]}
 ];
@@ -8377,8 +8385,8 @@ const KB = {
   'ASPI-ROBOT': {
     titre:'Aspirateur robot — filtrage au comptoir',
     questions:["Depuis quand ? Un changement récent (déménagement, meubles, Wi-Fi, mise à jour) ?","Emplacement de la base : dégagement suffisant ?","Message d'erreur dans l'application ?","Entretien : brosses, capteurs, contacts, filtre ?","Choc, chute, contact avec un liquide ?"],
-    controles:["Inspection visuelle : coque, pare-chocs, roues","Contacts de charge robot et base (nettoyage chiffon sec)","Capteurs de vide et LDS : propreté","Brosses : cheveux, fils enroulés","Mise en charge manuelle sur la base"],
-    nonPanne:["Base mal placée (dégagement ~0,5 m sur les côtés, ~1,5 m devant)","Contacts de charge encrassés","Capteurs sales : robot qui tourne en rond ou s'arrête","Carte perdue après changement d'agencement"]
+    controles:["Réservoirs de la station : couvercle clipsé, joint dans sa gorge, enclenchés jusqu'au clic","Inspection visuelle : coque, pare-chocs, roues","Contacts de charge robot et base (nettoyage chiffon sec)","Capteurs de vide et LDS : propreté","Brosses : cheveux, fils enroulés","Mise en charge manuelle sur la base"],
+    nonPanne:["Station qui n'aspire plus l'eau sale = réservoir d'eau usée mal fermé (joint sorti, couvercle non clipsé)","Base mal placée (dégagement ~0,5 m sur les côtés, ~1,5 m devant)","Contacts de charge encrassés","Capteurs sales : robot qui tourne en rond ou s'arrête","Carte perdue après changement d'agencement"]
   },
   'ASPI BALAI SANS FIL': {
     titre:'Aspirateur balai sans fil — filtrage au comptoir',
@@ -8405,6 +8413,43 @@ const KB = {
     nonPanne:["Pas d'aspiration = réservoir mal positionné ou joint absent","Buse bouchée par des poils"]
   }
 };
+
+/* ---------- N°5 : Dreame X50 Ultra Complete blanc — couvercle / joint du réservoir d'eau usée ---------- */
+CAS.push({
+  prep:['Dreame X50 Ultra Complete blanc de l\'atelier, robot chargé, réservoir d\'eau propre rempli, réservoir d\'eau usée vidé.',
+        'Remettre le réservoir d\'eau usée avec le joint de couvercle mal mis (sorti de sa gorge) ou le couvercle mal clipsé : la station n\'aspire plus l\'eau sale de la planche à laver.',
+        'Vérifier avant la séance : lancer un lavage des serpillières, l\'eau sale reste dans la planche à laver et la station signale une erreur (réservoir d\'eau usée / niveau d\'eau anormal).',
+        'Prévoir un chiffon et une éponge pour vider la planche à laver entre deux groupes.',
+        'Coller l\'étiquette signalétique n°5 sur la station.'],
+  indice:"Réservoir d'eau usée mal refermé : joint du couvercle sorti de sa gorge ou couvercle pas clipsé. La station ne fait plus le vide et ne peut plus aspirer l'eau sale de la planche à laver : serpillières qui restent sales, eau qui stagne dans la base, message d'erreur. Joint remis en place et couvercle bien fermé : tout refonctionne.",
+  remise:"Avant de partir, remettez l'appareil dans l'état où vous l'avez trouvé : videz la planche à laver, ressortez le joint du couvercle du réservoir d'eau usée (ou laissez le couvercle non clipsé) et remettez le réservoir dans la station.",
+  id:5, client:'70451236', codic:'8452196',
+  titre:"Station qui n'aspire plus l'eau sale",
+  accroche:"Ma station Dreame ne récupère plus l'eau sale : il reste de l'eau dans le fond de la base, les serpillières restent sales et l'application me met une erreur sur le réservoir d'eau usée. Il est pourtant vide !",
+  q:[
+    { l:"Avez-vous vidé ou nettoyé le réservoir d'eau usée récemment ?", r:"Oui, je l'ai lavé à fond sous la douche ce week-end, avec le couvercle et le joint, puis je l'ai remis.", cle:true },
+    { l:"Quel message exact affiche l'application ?", r:"Quelque chose comme « vérifiez le réservoir d'eau usée » et ensuite « niveau d'eau anormal ».", cle:true },
+    { l:"Le réservoir d'eau propre se vide-t-il normalement ?", r:"Oui, il se vide, c'est pour ça que ça déborde un peu dans la base." },
+    { l:"Le robot aspire-t-il toujours bien la poussière ?", r:"Oui, l'aspiration et la vidange du bac à poussière marchent." },
+    { l:"Depuis quand ?", r:"Depuis lundi, juste après que je l'ai nettoyé." }
+  ],
+  t:[
+    { l:"Sortir le réservoir d'eau usée et contrôler couvercle et joint", r:"Le joint du couvercle est sorti de sa gorge et le couvercle n'est pas clipsé d'un côté : le réservoir n'est pas étanche.", cle:true },
+    { l:"Remettre le joint dans sa gorge, clipser le couvercle et réinstaller le réservoir", r:"Le réservoir s'enclenche avec un clic, plus de message d'erreur.", cle:true },
+    { l:"Lancer un lavage des serpillières", r:"L'eau sale est aspirée de la planche à laver vers le réservoir d'eau usée : fonctionnement normal.", cle:true }
+  ],
+  motsCles:['eau','sale','usee','usée','reservoir','réservoir','station','base','serpill','aspire','erreur','joint','couvercle','niveau'],
+  attendu:'R1', acceptable:[],
+  verite:"Aucune panne. Après le nettoyage par la cliente, le joint du couvercle du réservoir d'eau usée a été remonté hors de sa gorge (ou le couvercle mal clipsé) : le réservoir n'est plus étanche, la station ne crée plus de dépression et ne peut plus aspirer l'eau sale. Joint remis en place, couvercle fermé : tout refonctionne.",
+  demarche:[
+    "Questionner : nettoyage récent du réservoir d'eau usée, message exact de l'application.",
+    "Sortir le réservoir d'eau usée devant la cliente : joint du couvercle hors de sa gorge, couvercle mal clipsé.",
+    "Remettre le joint, clipser le couvercle, réinstaller le réservoir jusqu'au clic.",
+    "Tester un lavage des serpillières : l'eau sale remonte. Expliquer le remontage du joint après chaque nettoyage. Clôturer en « résolu »."
+  ],
+  symptomeType:"La station n'aspire plus l'eau sale : eau qui stagne dans la base, serpillières sales, erreur « réservoir d'eau usée » alors qu'il est vide. Réservoir nettoyé juste avant.",
+  impact:"Envoyer une station de 999 € en atelier pour un joint mal remis, c'est plusieurs semaines sans appareil pour la cliente et un retour « aucun défaut constaté ». Remettre le joint prend 30 secondes au comptoir."
+});
 
 /* ====================================================================
    NOMAD MAGASIN — SIMULATEUR DE FORMATION RPS (filtrage au comptoir)
@@ -9421,6 +9466,7 @@ function termine(){
 const ACCESSOIRES = {
   'NETTOYEUR SOL':['CHARGEUR','BASE','RESERVOIR EAU PROPRE','RESERVOIR EAU SALE','EMBALLAGE'],
   'EXPRESSO FULL-AUTO':['RESERVOIR EAU','BAC A MARC','BAC D\'EGOUTTAGE','CARTOUCHE FILTRANTE','EMBALLAGE'],
+  'ASPI-ROBOT':['STATION','RESERVOIR EAU PROPRE','RESERVOIR EAU USEE','CORDON SECTEUR','EMBALLAGE'],
   '_':['CHARGEUR','BASE','EMBALLAGE']
 };
 function envoi(){
