@@ -5792,6 +5792,29 @@ body.projection h3.blocktitle_bg_bleu{font-size:22px !important;padding:16px 24p
 .e-sw.on b{background:#098B9B;color:#fff}
 .e-inline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px}
 .e-pill{background:gray;color:#fff;border-radius:10px;padding:4px 9px;font-size:11.5px}
+
+/* ---------- Documentation + visionneuse de notices ---------- */
+.kb-docs{list-style:none;margin:6px 0;padding:0}
+.kb-docs li{display:flex;align-items:center;gap:10px;padding:9px 10px;border:1px solid #e3e3e3;border-radius:6px;margin-bottom:6px;background:#fafafa}
+.kb-docs li>div{flex:1;font-size:13px;line-height:1.35} .kb-docs li span{color:#777;font-size:12px}
+.kb-docs .kd-ico{font-size:22px;color:inherit} .kb-docs .btn{margin:0}
+.kb-none{color:#888;font-style:italic}
+body.nv-open{overflow:hidden}
+#nv{position:fixed;inset:0;z-index:10050;background:#525659;display:flex;flex-direction:column}
+.nv-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#2b2b2b;color:#fff;padding:8px 12px}
+.nv-t{font-size:14px;flex:1 1 200px} .nv-bar .btn{margin:0;padding:4px 10px}
+.nv-s{display:flex;gap:4px;margin:0;flex:1 1 300px} .nv-s input{flex:1;margin:0;height:30px;box-sizing:border-box;border-radius:4px;border:0;padding:0 8px}
+.nv-nav{display:flex;align-items:center;gap:4px} #nv-pg{min-width:64px;text-align:center;font-size:13px}
+#nv-res{background:#fff;max-height:30vh;overflow:auto;font-size:13px}
+#nv-res:empty{display:none}
+.nv-r0{padding:6px 12px;color:#555;background:#f3f3f3;font-weight:bold}
+.nv-hit{display:block;padding:6px 12px;border-top:1px solid #eee;color:#333;cursor:pointer;text-decoration:none}
+.nv-hit:hover{background:#eaf6f8;text-decoration:none}
+#nv-pages{flex:1;overflow:auto;padding:12px;text-align:center;-webkit-overflow-scrolling:touch}
+.nv-p{margin:0 auto 14px;position:relative}
+.nv-p canvas{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.4);display:block;margin:0 auto}
+.nv-num{display:block;color:#ddd;font-size:11px;margin-bottom:3px}
+.nv-wait{color:#fff;padding:40px;font-size:15px} .nv-wait a{color:#9fe3ec}
 </style>
 </head>
 <body>
@@ -8202,15 +8225,25 @@ const CLIENTS = [
     ]},
   { id:'64412587', civ:'M', nom:'BERTRAND', prenom:'OLIVIER', cp:'69160', num:'27', rue:'AVENUE DE LA REPUBLIQUE', ville:'TASSIN LA DEMI LUNE', tel:'0663214587', mail:'o.bertrand@exemple.fr',
     produits:[
-      { codic:'7873735', famille:'NETTOYEUR SOL', marque:'ROWENTA', ref:'X-CLEAN 10 GZ7035WO', refFour:'GZ7035WO/26R0', prix:449.99, vente:'9450030912547', lig:1, ago:[13,20], serie:'', serieLibre:true },
+      { codic:'7873735', famille:'NETTOYEUR SOL', marque:'ROWENTA', ref:'X-CLEAN 10 GZ7035WO', refFour:'GZ7035WO/26R0', prix:449.99, vente:'9450030912547', lig:1, ago:[13,20], serie:'', serieAttendu:'9SA 002527118 02725 0' },
       { codic:'5874123', famille:'ASPI BALAI SANS FIL', marque:'ROWENTA', ref:'X-FORCE FLEX 11.60', refFour:'RH9878WO', prix:399.99, vente:'9450026874133', lig:1, ago:[41,2], serie:'RH98782108001287' },
       { codic:'4521369', famille:'MACHINE A PAIN', marque:'MOULINEX', ref:'PAIN DORE OW2101', refFour:'OW210130', prix:89.99, vente:'9450030912547', lig:2, ago:[14,12], serie:'' }
     ]},
 
   { id:'70451236', civ:'MME', nom:'BLANCHARD', prenom:'AURELIE', cp:'69140', num:'17', rue:'RUE DE LA REPUBLIQUE', ville:'RILLIEUX LA PAPE', tel:'0674521398', mail:'a.blanchard@exemple.fr',
     produits:[
-      { codic:'8452196', famille:'ASPI-ROBOT', marque:'DREAME', ref:'X50 ULTRA COMPLETE BLANC', refFour:'RLX85CE-4', prix:999.00, vente:'9450031874521', lig:1, ago:[7,12], serie:'R2585C0K4521736' },
+      { codic:'8452196', famille:'ASPI-ROBOT', marque:'DREAME', ref:'X50 ULTRA COMPLETE BLANC', refFour:'RLX85CE-4', prix:999.00, vente:'9450031874521', lig:1, ago:[7,12], serie:'R2585A643EU5214736' },
       { codic:'8452203', famille:'KIT ACCESSOIRES', marque:'DREAME', ref:'KIT ACCESSOIRES X50', refFour:'RAX50ACC', prix:59.99, vente:'9450031874521', lig:2, ago:[7,12], serie:'' }
+    ]},
+
+  { id:'61847520', civ:'M', nom:'FONTAINE', prenom:'PATRICK', cp:'69760', num:'5', rue:'RUE DU MARECHAL JOFFRE', ville:'LIMONEST', tel:'0687452136', mail:'p.fontaine@exemple.fr',
+    produits:[
+      { codic:'7410258', famille:'MULTICUISEUR', marque:'MOULINEX', ref:'COOKEO+ 6L 150 RECETTES', refFour:'CE851HF0', prix:229.99, vente:'9450031458712', lig:1, ago:[10,4], serie:'' },
+      { codic:'6987412', famille:'BOUILLOIRE', marque:'MOULINEX', ref:'SUBITO BY505D10', refFour:'BY505D10', prix:39.99, vente:'9450031458712', lig:2, ago:[10,4], serie:'' }
+    ]},
+  { id:'72145896', civ:'M', nom:'LEGRAND', prenom:'THOMAS', cp:'69009', num:'48', rue:'RUE DE BOURGOGNE', ville:'LYON', tel:'0612789541', mail:'t.legrand@exemple.fr',
+    produits:[
+      { codic:'8574123', famille:'ASPI-ROBOT', marque:'DREAME', ref:'D30 ULTRA', refFour:'RTD31TE', prix:449.00, vente:'9450032147856', lig:1, ago:[5,20], serie:'R2563T1EU0874512' }
     ]},
 
   /* ---------- Homonymes / leurres ---------- */
@@ -8220,6 +8253,8 @@ const CLIENTS = [
     produits:[ { codic:'8014752', famille:'NETTOYEUR SOL', marque:'TINECO', ref:'FLOOR ONE S5 STRETCH EXTREME', refFour:'FW412500DE', prix:549.00, vente:'9450030014587', lig:1, ago:[3,0], serie:'' } ]},
   { id:'70459870', civ:'MME', nom:'BLANCHARD', prenom:'AUDREY', cp:'69140', num:'3', rue:'CHEMIN DE LA BOCAGE', ville:'RILLIEUX LA PAPE', tel:'0678451230', mail:'',
     produits:[ { codic:'8452196', famille:'ASPI-ROBOT', marque:'DREAME', ref:'X50 ULTRA COMPLETE BLANC', refFour:'RLX85CE-4', prix:999.00, vente:'9450032014785', lig:1, ago:[2,3], serie:'' } ]},
+  { id:'72145001', civ:'M', nom:'LEGRAND', prenom:'THOMAS', cp:'69800', num:'9', rue:'AVENUE JEAN JAURES', ville:'SAINT PRIEST', tel:'0624857913', mail:'',
+    produits:[ { codic:'8574123', famille:'ASPI-ROBOT', marque:'DREAME', ref:'D30 ULTRA', refFour:'RTD31TE', prix:449.00, vente:'9450032541287', lig:1, ago:[1,2], serie:'' } ]},
   { id:'52147001', civ:'M', nom:'PERRIN', prenom:'BERNARD', cp:'69570', num:'8', rue:'ROUTE DE LIMONEST', ville:'DARDILLY', tel:'0478451236', mail:'',
     produits:[ { codic:'6325874', famille:'TONDEUSE', marque:'BOSCH', ref:'ROTAK 32', refFour:'06008A6100', prix:129.00, vente:'9450026874512', lig:1, ago:[44,0], serie:'' } ]}
 ];
@@ -8344,8 +8379,8 @@ const CAS = [
 
 /* Cas n°4 : produit sous rappel fournisseur (reprise GZ7035 X-Clean 10) */
 CAS.push({
-  prep:['Rowenta X-Clean 10 GZ7035 de l\'atelier : code de fabrication 2725 (semaine 27 de 2025) sur la plaque derrière le réservoir d\'eau sale, donc concerné (≤ 3125).','Pompe débranchée : l\'appareil affiche un code erreur et ne fonctionne plus.','Réservoirs propres et rouleau propre : la panne ne doit pas venir de l\'entretien.','Laisser la plaque signalétique d\'origine lisible : les RPS doivent y lire le code de fabrication et le n° de série.','Poser la fiche client n°4 à côté (inutile de coller l\'étiquette : la vraie plaque fait foi).'],
-  indice:"Code erreur, aucun fonctionnement, réservoirs et rouleau propres. Plaque derrière le réservoir d'eau sale : REF GZ7035WO/…-2725 → fabriqué en semaine 27 de 2025, avant la semaine 32 : concerné par la reprise Rowenta (Flash Info S43).",
+  prep:['Rowenta X-Clean 10 GZ7035 de l\'atelier : plaque factice collée derrière le réservoir d\'eau sale : DATE 2025.27 (semaine 27 de 2025), S/N 9SA 002527118 02725 0, donc concerné (fabriqué avant la semaine 32 de 2025).','Pompe débranchée : l\'appareil affiche un code erreur et ne fonctionne plus.','Réservoirs propres et rouleau propre : la panne ne doit pas venir de l\'entretien.','Laisser la plaque signalétique d\'origine lisible : les RPS doivent y lire le code de fabrication et le n° de série.','Poser la fiche client n°4 à côté (inutile de coller l\'étiquette : la vraie plaque fait foi).'],
+  indice:"Code erreur, aucun fonctionnement, réservoirs et rouleau propres. Plaque derrière le réservoir d'eau sale : REF GZ7035WO/SA1-2725 et DATE : 2025.27 → fabriqué en semaine 27 de 2025, avant la semaine 32 : concerné par la reprise Rowenta (Flash Info S43).",
   doc:'GZ7035',
   id:4, client:'64412587', codic:'7873735',
   titre:'Aspirateur laveur en erreur… concerné par un rappel',
@@ -8358,23 +8393,23 @@ CAS.push({
     { l:'L\'appareil est-il tombé ou a-t-il aspiré beaucoup d\'eau ?', r:"Non, jamais." }
   ],
   t:[
-    { l:'Lire la plaque signalétique derrière le réservoir d\'eau sale', r:"REF GZ7035WO/…-2725 : fabriqué en semaine 27 de 2025, donc avant la semaine 32 de 2025.", cle:true },
+    { l:'Lire la plaque signalétique derrière le réservoir d\'eau sale', r:"REF GZ7035WO/SA1-2725, DATE : 2025.27, S/N 9SA 002527118 02725 0 : fabriqué en semaine 27 de 2025, donc avant la semaine 32 de 2025.", cle:true },
     { l:'Vider, rincer les réservoirs et relancer', r:"Réservoirs déjà propres. Toujours le même code erreur : vraie panne.", cle:true },
     { l:'Contrôler la charge de la batterie', r:"Charge OK, voyants normaux." }
   ],
   motsCles:['erreur','code','voyant','marche','fonctionne','rappel'],
   attendu:'R6', acceptable:[],
-  verite:"Vraie panne, mais le produit est concerné par la reprise GZ7035 X-Clean 10 (Flash Info S43) : fabriqué en semaine 27 de 2025 (code 2725), donc avant la semaine 32 de 2025. Il ne doit pas partir à l'atelier ni être traité par le diagnostic : d'abord la reprise commerciale « avec mise en HS » depuis la fiche équipement, puis le rappel de parc unitaire dans Nomad (dossier avec préfixe, mise en HS) et la mutation vers la GRF de Mitry.",
+  verite:"Vraie panne, mais le produit est concerné par la reprise GZ7035 X-Clean 10 (Flash Info S43) : fabriqué en semaine 27 de 2025 (DATE 2025.27 sur la plaque), donc avant la semaine 32 de 2025. Il ne doit pas partir à l'atelier ni être traité par le diagnostic : d'abord la reprise commerciale « avec mise en HS » depuis la fiche équipement, puis le rappel de parc unitaire dans Nomad (dossier avec préfixe, mise en HS) et la mutation vers la GRF de Mitry.",
   demarche:[
     "Constater la panne et vérifier que l'entretien n'est pas en cause.",
     "Consulter la base de connaissance : le Flash Info S43 signale la reprise des GZ7035 fabriqués jusqu'à la semaine 31 de 2025.",
-    "Lire la plaque derrière le réservoir d'eau sale : code 2725, donc concerné.",
+    "Lire la plaque derrière le réservoir d'eau sale : DATE 2025.27, donc concerné. Relever le S/N complet pour la reprise et le rappel.",
     "Ne pas conclure le diagnostic (ni Oui ni Non) : depuis la fiche équipement, bouton REPRISE COMMERCIALE > n° de série, symptômes, motif, code encadrant > « Reprise Comptoir avec mise en HS ».",
     "Ensuite : Suivi des en-cours > Création d'un dossier avec préfixe > CODIC 7873735 > Rechercher > ligne du produit > OK.",
     "Dossier Sav : n° de série, symptôme « rappel de parc », accessoires, état de l'appareil > Mise en HS > Terminer.",
     "Coller l'étiquette MITRY sur le produit et l'envoyer à la GRF. Surtout pas de « Valider dépose » vers l'atelier."
   ],
-  symptomeType:"Code erreur, plus aucun fonctionnement, réservoirs et rouleau propres. Produit concerné par la reprise GZ7035 X-Clean 10 (fabrication S27-2025, code 2725, avant S32-2025) : rappel de parc.",
+  symptomeType:"Code erreur, plus aucun fonctionnement, réservoirs et rouleau propres. Produit concerné par la reprise GZ7035 X-Clean 10 (fabrication S27-2025, DATE 2025.27, avant S32-2025) : rappel de parc.",
   impact:"Le Flash Info S43 le signale : trop de GZ7035 sous rappel arrivent dans les ateliers. À l'atelier, le produit n'est pas réparé, le dossier tourne pour rien, et sans mise en HS dans les délais le remboursement fournisseur est perdu."
 });
 
@@ -8382,10 +8417,16 @@ CAS.push({
    Base de connaissance fictive (par famille)
    -------------------------------------------------------------------- */
 const KB = {
+  'MULTICUISEUR': {
+    titre:'Multicuiseur / Cookeo — filtrage au comptoir',
+    questions:["Le couvercle a-t-il été démonté et nettoyé récemment ?","À quel moment exact le problème apparaît-il (montée en pression, cuisson, décompression) ?","Code erreur affiché ?","Quantité de liquide dans la cuve ?","De la vapeur sort-elle par le joint ou la poignée ?"],
+    controles:["Couvercle : joint propre et bien en place","Bille de décompression et cache-bille : sens de montage, mobilité","Cache valve clipsé, orifice de la valve propre","Écrou central du couvercle : ni desserré ni trop serré","Cuve bien posée, rien entre la cuve et la plaque"],
+    nonPanne:["Pas de décompression en fin de cuisson = bille ou cache-bille mal remonté, valve encrassée","Ne monte pas en pression = joint sale ou mal placé, couvercle pression mal vissé","Couvercle qui ne se ferme pas = poignée en position fermée ou couvercle intérieur décalé","Couvercle verrouillé en fin de cuisson = pression encore présente, attendre"]
+  },
   'ASPI-ROBOT': {
     titre:'Aspirateur robot — filtrage au comptoir',
     questions:["Depuis quand ? Un changement récent (déménagement, meubles, Wi-Fi, mise à jour) ?","Emplacement de la base : dégagement suffisant ?","Message d'erreur dans l'application ?","Entretien : brosses, capteurs, contacts, filtre ?","Choc, chute, contact avec un liquide ?"],
-    controles:["Réservoirs de la station : couvercle clipsé, joint dans sa gorge, enclenchés jusqu'au clic","Inspection visuelle : coque, pare-chocs, roues","Contacts de charge robot et base (nettoyage chiffon sec)","Capteurs de vide et LDS : propreté","Brosses : cheveux, fils enroulés","Mise en charge manuelle sur la base"],
+    controles:["Réservoirs de la station : couvercle clipsé, joint dans sa gorge, enclenchés jusqu'au clic","Brosse latérale : cheveux/fil sur l'axe, clipsage, rotation libre à la main ; si l'erreur persiste brosse propre et remplacée = défaut technique","Inspection visuelle : coque, pare-chocs, roues","Contacts de charge robot et base (nettoyage chiffon sec)","Capteurs de vide et LDS : propreté","Brosses : cheveux, fils enroulés","Mise en charge manuelle sur la base"],
     nonPanne:["Station qui n'aspire plus l'eau sale = réservoir d'eau usée mal fermé (joint sorti, couvercle non clipsé)","Base mal placée (dégagement ~0,5 m sur les côtés, ~1,5 m devant)","Contacts de charge encrassés","Capteurs sales : robot qui tourne en rond ou s'arrête","Carte perdue après changement d'agencement"]
   },
   'ASPI BALAI SANS FIL': {
@@ -8449,6 +8490,78 @@ CAS.push({
   ],
   symptomeType:"La station n'aspire plus l'eau sale : eau qui stagne dans la base, serpillières sales, erreur « réservoir d'eau usée » alors qu'il est vide. Réservoir nettoyé juste avant.",
   impact:"Envoyer une station de 999 € en atelier pour un joint mal remis, c'est plusieurs semaines sans appareil pour la cliente et un retour « aucun défaut constaté ». Remettre le joint prend 30 secondes au comptoir."
+});
+
+/* ---------- N°6 : Cookeo+ — cache-bille de décompression remonté à l'envers ---------- */
+CAS.push({
+  prep:['Moulinex Cookeo+ CE851HF0 (série EPC09) de l\'atelier, propre, avec sa cuve et un fond d\'eau pour une démonstration.',
+        'Sous le couvercle : remonter le cache-bille de la bille de décompression à l\'envers. La bille ne peut plus être poussée en fin de cuisson : la vapeur ne se libère pas, ou très lentement.',
+        'Vérifier avant la séance (si le temps le permet) : en fin de cuisson sous pression, la vapeur ne sort pas par la valve et le couvercle reste verrouillé longtemps.',
+        'Prévoir la notice du Cookeo (partie « démontage du couvercle »), un torchon, et laisser refroidir entre deux groupes.',
+        'Coller l\'étiquette signalétique n°6 sur l\'appareil.'],
+  indice:"Cache-bille de la bille de décompression remonté à l'envers sous le couvercle : en fin de cuisson, la bille n'est plus soulevée, la vapeur ne s'échappe pas, le couvercle reste verrouillé de longues minutes (parfois code 27, problème de décompression). Cache-bille remis dans le bon sens : décompression normale.",
+  remise:"Avant de partir, remettez l'appareil dans l'état où vous l'avez trouvé : laissez refroidir, puis remontez le cache-bille à l'envers sous le couvercle et refermez le couvercle.",
+  id:6, client:'61847520', codic:'7410258',
+  titre:"Cookeo qui ne libère plus la vapeur en fin de cuisson",
+  accroche:"Mon Cookeo ne lâche plus la vapeur à la fin des cuissons sous pression : il reste bloqué de longues minutes, je ne peux pas l'ouvrir et mes plats sont trop cuits.",
+  q:[
+    { l:"Avez-vous démonté et nettoyé le couvercle récemment ?", r:"Oui, j'ai tout démonté et passé au lave-vaisselle la semaine dernière, la bille et son petit cache aussi.", cle:true },
+    { l:"Depuis quand le problème apparaît-il ?", r:"Depuis ce nettoyage, justement.", cle:true },
+    { l:"Un code s'affiche-t-il à l'écran ?", r:"Une fois il a affiché un code 27, sinon il reste juste sur « décompression »." },
+    { l:"Monte-t-il bien en pression ?", r:"Oui, la cuisson se fait, c'est à la fin que ça bloque." },
+    { l:"De la vapeur sort-elle ailleurs, par le joint ou la poignée ?", r:"Non, rien." }
+  ],
+  t:[
+    { l:"Ouvrir le couvercle et contrôler les pièces de décompression", r:"Le cache-bille est remonté à l'envers : la bille ne peut plus être soulevée en fin de cuisson.", cle:true },
+    { l:"Remonter le cache-bille dans le bon sens (notice, démontage du couvercle)", r:"Le cache-bille s'enclenche correctement, la bille bouge librement.", cle:true },
+    { l:"Vérifier la mobilité de la bille et la propreté de la valve", r:"Bille mobile, orifice propre : la décompression peut se faire normalement.", cle:true }
+  ],
+  motsCles:['vapeur','decompression','décompression','fin','cuisson','pression','bloque','ouvrir','couvercle','bille','code','27','long'],
+  attendu:'R1', acceptable:[],
+  verite:"Aucune panne. Après un nettoyage complet du couvercle, le client a remonté le cache-bille de la bille de décompression à l'envers : la bille n'est plus soulevée en fin de cuisson et la vapeur ne se libère pas. Cache-bille remis dans le bon sens : décompression normale.",
+  demarche:[
+    "Questionner : nettoyage récent du couvercle, moment exact du blocage, code éventuel.",
+    "Démonter le couvercle devant le client et contrôler la bille de décompression et son cache.",
+    "Remonter le cache-bille dans le bon sens en montrant la page « démontage du couvercle » de la notice.",
+    "Vérifier que la bille bouge librement. Clôturer en « résolu » avec conseils de remontage après nettoyage."
+  ],
+  symptomeType:"En fin de cuisson sous pression, la vapeur ne se libère pas : décompression très longue, couvercle verrouillé, parfois code 27. Couvercle démonté et nettoyé juste avant.",
+  impact:"Un Cookeo envoyé en atelier pour un cache-bille à l'envers revient « aucun défaut constaté » après plusieurs semaines. Le remonter prend une minute au comptoir."
+});
+
+/* ---------- N°7 : Dreame D30 Ultra — brosse latérale bloquée alors qu'elle est propre : vraie panne ---------- */
+CAS.push({
+  prep:['Dreame D30 Ultra de l\'atelier présentant le défaut réel : erreur « brosse latérale bloquée » alors que la brosse est propre et tourne librement à la main.',
+        'Brosse latérale propre, sans cheveux ni fil, bien clipsée : le RPS doit constater qu\'il n\'y a rien à nettoyer.',
+        'Robot chargé pour pouvoir lancer un nettoyage et faire apparaître l\'erreur.',
+        'Coller l\'étiquette signalétique n°7 sur le robot.'],
+  indice:"Erreur « brosse latérale bloquée » qui revient alors que la brosse est propre, tourne librement à la main et a été déclipsée/reclipsée : ce n'est pas de l'entretien, c'est un défaut technique (moteur ou entraînement de la brosse latérale). Produit sous garantie : envoi SAV en réparation.",
+  id:7, client:'72145896', codic:'8574123',
+  titre:"Robot en erreur « brosse latérale bloquée »",
+  accroche:"Mon robot Dreame s'arrête tout le temps avec « brosse latérale bloquée ». Je l'ai nettoyée, il n'y a rien dessus, et il dit toujours qu'elle est bloquée.",
+  q:[
+    { l:"Avez-vous retiré et nettoyé la brosse latérale ?", r:"Oui, plusieurs fois, je l'ai même changée avec celle de rechange fournie : pareil.", cle:true },
+    { l:"L'erreur apparaît-elle tout de suite au démarrage ?", r:"Oui, au bout de quelques secondes, à chaque fois.", cle:true },
+    { l:"Le robot a-t-il aspiré un câble ou un objet avant le problème ?", r:"Non, pas que je sache." },
+    { l:"Le robot est-il tombé ou a-t-il pris l'eau ?", r:"Non." },
+    { l:"Avez-vous fait la dernière mise à jour dans l'application ?", r:"Oui, il est à jour." }
+  ],
+  t:[
+    { l:"Contrôler la brosse latérale (cheveux, fil, clipsage)", r:"Brosse propre, bien clipsée, rien d'enroulé autour de l'axe.", cle:true },
+    { l:"Faire tourner la brosse à la main, la déclipser et la reclipser", r:"Elle tourne librement, sans point dur.", cle:true },
+    { l:"Lancer un nettoyage", r:"Au bout de quelques secondes : « brosse latérale bloquée », la brosse ne tourne pas. Défaut technique confirmé.", cle:true }
+  ],
+  motsCles:['brosse','laterale','latérale','bloque','bloquée','erreur','arrete','arrête','tourne','propre','moteur'],
+  attendu:'R4', acceptable:[],
+  verite:"Vraie panne. La brosse latérale est propre, tourne librement à la main et a été remplacée par le client, mais l'erreur revient immédiatement et la brosse ne tourne pas en fonctionnement : défaut du moteur ou de l'entraînement de la brosse latérale. Produit sous garantie : envoi SAV en réparation.",
+  demarche:[
+    "Questionner : nettoyage déjà fait, brosse de rechange essayée, moment d'apparition de l'erreur.",
+    "Contrôler la brosse : propre, clipsée, tourne librement à la main.",
+    "Lancer un nettoyage : l'erreur revient et la brosse ne tourne pas. Ce n'est pas de l'entretien.",
+    "Produit sous garantie : « Non » puis Envoi direct en Atelier, intervention « Réparation », symptôme précis."
+  ],
+  symptomeType:"Erreur « brosse latérale bloquée » quelques secondes après le démarrage, alors que la brosse est propre, tourne librement à la main et a été remplacée. La brosse ne tourne pas en fonctionnement.",
+  impact:"Refuser la prise en charge en répétant « nettoyez la brosse » renvoie un client sous garantie avec un appareil réellement en panne : il revient mécontent, ou ne revient pas."
 });
 
 /* ====================================================================
@@ -8674,7 +8787,6 @@ function afficherQR(){
           <li>Prenez un appareil et sa fiche, puis <b>Nouvelle prise en charge</b></li>
           <li>Tranchez : <span class="pill vert">Oui = filtré</span> <span class="pill rouge">Non = envoi SAV</span></li>
         </ol>
-        <div class="qr-url">${esc(url.replace(/^https?:\/\//,''))}</div>
       </div>
       <div class="qr-code">${qrSvg(url)}</div>
     </div>`;
@@ -9291,34 +9403,123 @@ function finaliserReprise(){
 /* ====================================================================
    ÉCRAN : DIAGNOSTIC RÉPARATION
    ==================================================================== */
+/* ---------- Documentation : notices complètes (PDF hébergés à côté du site, dossier notices/) ---------- */
+const NOTICES = {
+  '8215347':{ f:'delonghi-magnifica-evo.pdf', t:"De'Longhi Magnifica Evo — ECAM29X.6Y / 29X.8Y", n:24 },
+  '8014752':{ f:'tineco-floor-one-s5-stretch.pdf', t:'Tineco Floor One S5 / S6 Stretch', n:25 },
+  '8317426':{ f:'delonghi-magnifica-evo-next.pdf', t:"De'Longhi Magnifica Evo Next — ECAM31X.6Y / 31X.8Y", n:56 },
+  '7873735':{ f:'rowenta-x-clean-10.pdf', t:'Rowenta X-Clean 10', n:12 },
+  '8452196':{ f:'dreame-x50-ultra.pdf', t:'Dreame X50 Ultra', n:17 },
+  '7410258':{ f:'moulinex-cookeo-plus.pdf', t:'Moulinex Cookeo+', n:35 },
+  '8574123':{ f:'dreame-d30-ultra.pdf', t:'Dreame D30 Ultra', n:19 }
+};
 function kbHtml(fam, c){
-  if (c && c.doc === 'GZ7035') return `<div class="kb">
-    <div class="kb-h"><span class="kb-tag">FLASH INFO S43</span> Reprise GZ7035 X-Clean 10 — CODIC 7873735</div>
-    <img class="kb-img" src="${DOCS.flash5}" alt="Flash Info S43 — Reprise GZ7035">
-    <img class="kb-img" src="${DOCS.flash6}" alt="Flash Info S43 — Où trouver la date de fabrication">
-    <button class="btn btn-primary kb-proc" data-proc="1">📄 Procédure « Rappel de parc » via Nomad Magasin</button>
-    <div class="kb-foot">Source : Flash Info Darty S43 · Coordination Opérations SAV Magasins</div>
-  </div>`;
-  if (c && c.doc === 'TINECO') return `<div class="kb">
-    <div class="kb-h"><span class="kb-tag">NOTICE TINECO</span> Floor One S5 Stretch Extreme — FW412500DE</div>
-    <img class="kb-img" src="${DOCS.tin93}" alt="Notice Tineco p.90 — Voyants">
-    <img class="kb-img" src="${DOCS.tin98}" alt="Notice Tineco p.95 — Rouleau brosse">
-    <img class="kb-img" src="${DOCS.tin97}" alt="Notice Tineco p.94 — Réservoir d'eau sale et filtre sec">
-    <img class="kb-img" src="${DOCS.tin100}" alt="Notice Tineco p.97 — Guide de dépannage">
-    <div class="kb-foot">Source : notice d'utilisation Tineco FW412500DE, partie française (p. 90, 94, 95, 97)</div>
-  </div>`;
-  const k = KB[fam] || KB['ASPI-ROBOT'];
-  const li = a => a.map(x => `<li>${esc(x)}</li>`).join('');
+  const p = c ? produitById(c.codic) : null, N = c ? NOTICES[c.codic] : null;
+  const docs = [];
+  if (N) docs.push(`<li><span class="kd-ico">📘</span><div><b>Notice d'utilisation</b><br><span>${esc(N.t)} · ${N.n} pages · français</span></div><button class="btn btn-primary" data-notice="${c.codic}">Ouvrir</button></li>`);
+  if (c && c.doc === 'GZ7035'){
+    docs.push(`<li><span class="kd-ico">📰</span><div><b>Flash Info Darty S43</b><br><span>Coordination Opérations SAV Magasins</span></div><button class="btn btn-primary" data-flash="1">Ouvrir</button></li>`);
+    docs.push(`<li><span class="kd-ico">📄</span><div><b>Procédure « Rappel de parc » via Nomad Magasin</b><br><span>Mode opératoire</span></div><button class="btn btn-primary kb-proc" data-proc="1">Ouvrir</button></li>`);
+  }
   return `<div class="kb">
-    <div class="kb-h"><span class="kb-tag">AIDE AU DIAGNOSTIC</span> ${esc(k.titre)}</div>
-    <div class="kb-cols">
-      <div><h4>Questions à poser</h4><ul>${li(k.questions)}</ul></div>
-      <div><h4>Contrôles avant dépose</h4><ul>${li(k.controles)}</ul></div>
-    </div>
-    <div class="kb-np"><h4>Cas fréquents « sans panne »</h4><ul>${li(k.nonPanne)}</ul></div>
-    <div class="kb-foot">Simule l'article que la base de connaissance afficherait pour ce symptôme</div>
+    <div class="kb-h"><span class="kb-tag">DOCUMENTATION</span> ${p ? esc(p.marque + ' ' + p.ref) : ''}</div>
+    ${docs.length ? `<ul class="kb-docs">${docs.join('')}</ul>` : '<p class="kb-none">Aucun document disponible pour ce produit.</p>'}
+    <div class="kb-foot">Recherchez dans la notice : dépannage, entretien, voyants, codes erreur…</div>
   </div>`;
 }
+function produitById(codic){ for (const cl of CLIENTS) for (const p of cl.produits) if (p.codic === codic) return p; return null; }
+function afficherFlash(){
+  modal(`<div class="kb"><div class="kb-h"><span class="kb-tag">FLASH INFO S43</span> Coordination Opérations SAV Magasins</div>
+    <img class="kb-img" src="${DOCS.flash5}" alt="Flash Info S43"><img class="kb-img" src="${DOCS.flash6}" alt="Flash Info S43"></div>
+    <div class="modal-btns"><button class="btn btn-primary" onclick="NF.close()">Fermer</button></div>`, {width:860});
+}
+/* Visionneuse PDF (pdf.js, chargé à la demande depuis lib/) */
+let _pdfjs = null;
+function chargerPdfjs(){
+  if (_pdfjs) return _pdfjs;
+  _pdfjs = new Promise((ok, ko) => {
+    const sc = document.createElement('script'); sc.src = 'lib/pdf.min.js';
+    sc.onload = () => { try { window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'lib/pdf.worker.min.js'; ok(window.pdfjsLib); } catch(e){ ko(e); } };
+    sc.onerror = () => { _pdfjs = null; ko(new Error('pdf.js introuvable')); };
+    document.head.appendChild(sc);
+  });
+  return _pdfjs;
+}
+async function ouvrirNotice(codic){
+  const N = NOTICES[codic]; if (!N) return;
+  const url = 'notices/' + N.f;
+  const el = document.createElement('div'); el.id = 'nv';
+  el.innerHTML = `<div class="nv-bar">
+      <b class="nv-t">📘 ${esc(N.t)}</b>
+      <form class="nv-s" onsubmit="return false"><input id="nv-q" type="search" placeholder="Rechercher dans la notice…" autocomplete="off"><button class="btn btn-primary" id="nv-go">🔍</button></form>
+      <span class="nv-nav"><button class="btn" id="nv-prev">◀</button><span id="nv-pg">– / ${N.n}</span><button class="btn" id="nv-next">▶</button>
+      <button class="btn" id="nv-zm">−</button><button class="btn" id="nv-zp">+</button></span>
+      <button class="btn btn-danger" id="nv-x">✕</button></div>
+    <div id="nv-res"></div>
+    <div id="nv-pages"><div class="nv-wait">Chargement de la notice…</div></div>`;
+  document.body.appendChild(el); document.body.classList.add('nv-open');
+  const fermer = () => { el.remove(); document.body.classList.remove('nv-open'); document.removeEventListener('keydown', esc_); };
+  const esc_ = e => { if (e.key === 'Escape') fermer(); };
+  document.addEventListener('keydown', esc_); $('#nv-x').onclick = fermer;
+  let doc, zoom = 1, cur = 1; const textes = {};
+  try {
+    const lib = await chargerPdfjs();
+    doc = await lib.getDocument({ url, standardFontDataUrl:'lib/standard_fonts/' }).promise;
+  } catch(e){
+    $('#nv-pages').innerHTML = `<div class="nv-wait">Impossible d'afficher la notice ici.<br><a href="${url}" target="_blank" rel="noopener">Ouvrir le PDF dans un nouvel onglet</a></div>`; return;
+  }
+  const box = $('#nv-pages');
+  const rendre = async () => {
+    box.innerHTML = '';
+    const w = Math.min(box.clientWidth - 24, 1000) * zoom, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    for (let i = 1; i <= doc.numPages; i++){
+      const d = document.createElement('div'); d.className = 'nv-p'; d.dataset.p = i; d.innerHTML = `<span class="nv-num">Page ${i}</span>`;
+      const cv = document.createElement('canvas'); d.appendChild(cv); box.appendChild(d);
+      d._render = async () => {
+        if (d._done) return; d._done = true;
+        const pg = await doc.getPage(i); const v1 = pg.getViewport({ scale:1 }); const sc = w / v1.width; const v = pg.getViewport({ scale: sc * dpr });
+        cv.width = v.width; cv.height = v.height; cv.style.width = (v.width/dpr) + 'px'; cv.style.height = (v.height/dpr) + 'px';
+        await pg.render({ canvasContext: cv.getContext('2d'), viewport: v }).promise;
+      };
+      const pg1 = await doc.getPage(i); const v1 = pg1.getViewport({ scale:1 }); d.style.minHeight = (w * v1.height / v1.width + 22) + 'px';
+    }
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target._render(); } }), { root: box, rootMargin:'600px 0px' });
+    $$('.nv-p', box).forEach(d => io.observe(d));
+    aller(cur, true);
+  };
+  const aller = (n, instant) => {
+    cur = Math.max(1, Math.min(doc.numPages, n)); $('#nv-pg').textContent = cur + ' / ' + doc.numPages;
+    const d = box.querySelector(`.nv-p[data-p="${cur}"]`); if (d){ d._render(); box.scrollTo({ top: d.offsetTop - box.offsetTop, behavior: instant ? 'auto' : 'smooth' }); }
+  };
+  box.addEventListener('scroll', () => {
+    const ps = $$('.nv-p', box); let best = 1;
+    for (const d of ps){ if (d.offsetTop - box.offsetTop - box.scrollTop <= box.clientHeight / 3) best = +d.dataset.p; else break; }
+    if (best !== cur){ cur = best; $('#nv-pg').textContent = cur + ' / ' + doc.numPages; }
+  });
+  $('#nv-prev').onclick = () => aller(cur - 1); $('#nv-next').onclick = () => aller(cur + 1);
+  $('#nv-zp').onclick = () => { zoom = Math.min(2.5, zoom + 0.25); rendre(); };
+  $('#nv-zm').onclick = () => { zoom = Math.max(0.5, zoom - 0.25); rendre(); };
+  const nrm = x => x.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+  const chercher = async () => {
+    const q = nrm($('#nv-q').value.trim()); const res = $('#nv-res');
+    if (q.length < 3){ res.innerHTML = '<div class="nv-r0">Tapez au moins 3 lettres.</div>'; return; }
+    res.innerHTML = '<div class="nv-r0">Recherche…</div>'; const hits = [];
+    for (let i = 1; i <= doc.numPages; i++){
+      if (textes[i] === undefined){ const tc = await (await doc.getPage(i)).getTextContent(); textes[i] = tc.items.map(it => it.str).join(' ').replace(/\s+/g,' '); }
+      const t = textes[i], tn = nrm(t); let k = tn.indexOf(q);
+      if (k >= 0) hits.push({ p:i, ex: t.slice(Math.max(0,k-50), k+q.length+60) });
+    }
+    res.innerHTML = hits.length ? `<div class="nv-r0">${hits.length} page(s) contiennent « ${esc($('#nv-q').value.trim())} » :</div>` + hits.map(h => `<a class="nv-hit" data-p="${h.p}"><b>p. ${h.p}</b> … ${esc(h.ex)} …</a>`).join('')
+      : `<div class="nv-r0">Aucun résultat pour « ${esc($('#nv-q').value.trim())} ».</div>`;
+    $$('.nv-hit', res).forEach(a => a.onclick = () => aller(+a.dataset.p));
+  };
+  $('#nv-go').onclick = chercher; $('#nv-q').onkeydown = e => { if (e.key === 'Enter'){ e.preventDefault(); chercher(); } };
+  await rendre();
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-notice]'); if (b){ e.preventDefault(); ouvrirNotice(b.dataset.notice); return; }
+  const f = e.target.closest('[data-flash]'); if (f){ e.preventDefault(); afficherFlash(); }
+});
 function diag(){
   const { c, p } = produitCas(); const g = garantie(p);
   $('#app').innerHTML = `
@@ -9466,6 +9667,7 @@ function termine(){
 const ACCESSOIRES = {
   'NETTOYEUR SOL':['CHARGEUR','BASE','RESERVOIR EAU PROPRE','RESERVOIR EAU SALE','EMBALLAGE'],
   'EXPRESSO FULL-AUTO':['RESERVOIR EAU','BAC A MARC','BAC D\'EGOUTTAGE','CARTOUCHE FILTRANTE','EMBALLAGE'],
+  'MULTICUISEUR':['CUVE','PANIER VAPEUR','RECUPERATEUR DE CONDENSATION','CORDON SECTEUR','EMBALLAGE'],
   'ASPI-ROBOT':['STATION','RESERVOIR EAU PROPRE','RESERVOIR EAU USEE','CORDON SECTEUR','EMBALLAGE'],
   '_':['CHARGEUR','BASE','EMBALLAGE']
 };
@@ -9786,7 +9988,7 @@ function noter(ori, gar, sec, extra){
   if (ori === 'R6' && c.attendu === 'R6'){
     const P = (extra && extra.pref) || {}; const nS = x => norm(x).replace(/[^A-Z0-9]/g,'');
     const ok1 = P.codic === c.codic;
-    const ok2 = p.serieLibre ? nS(P.serie).length >= 8 : (nS(P.serie) === nS(p.serie) && !!p.serie);
+    const serRef = p.serieAttendu || p.serie; const ok2 = !!serRef && nS(P.serie) === nS(serRef);
     const ok3 = /RAPPEL/.test(norm(P.symptome));
     const ok4 = !!String(P.acc||'').trim() && !!P.etat;
     const rc = cur.reprise; const rcAvant = rc && (!P.hs || rc.date <= P.hs.date);
@@ -9795,7 +9997,7 @@ function noter(ori, gar, sec, extra){
     det.push({ l:'Procédure : reprise commerciale puis rappel de parc', p:n, m:10,
       c: [ (rcPts===4?'✔':'✖')+' reprise commerciale ' + (!rc ? 'non faite (à faire en premier, depuis la fiche équipement)' : rc.btn==='mise_en_hs' ? '« avec mise en HS » faite avant le rappel' : '« ' + esc(REPRISE_BTN[rc.btn]) + ' » : attendu « avec mise en HS »'),
            (ok1?'✔':'✖')+' CODIC '+esc(P.codic||'—'),
-           (ok2?'✔':'✖')+' n° de série '+esc(P.serie||'—')+(ok2?'':(p.serieLibre?' (lire la série complète sur la plaque)':` (plaque : ${esc(p.serie)})`)),
+           (ok2?'✔':'✖')+' n° de série '+esc(P.serie||'—')+(ok2?'':` (plaque : ${esc(serRef)})`),
            (ok3?'✔':'✖')+' symptôme « rappel de parc »',
            (ok4?'✔':'✖')+' accessoires et état de l\'appareil renseignés',
            'Mise en HS effectuée : étiquette MITRY générée' ].join('<br>') });
